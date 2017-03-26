@@ -1,5 +1,6 @@
 parameters:
     pim_catalog.completeness.calculator.class: Pim\Component\Catalog\Completeness\CompletenessCalculator
+    pim_catalog.doctrine.completeness_generator.class: Pim\Bundle\CatalogBundle\Doctrine\ORM\CompletenessGenerator
 
 services:
     pim_catalog.completeness.calculator:
@@ -9,3 +10,11 @@ services:
             - '@pim_catalog.repository.cached_channel'
             - '@pim_catalog.repository.cached_locale'
             - '@pim_catalog.completeness.checker'
+
+    pim_catalog.doctrine.completeness_generator:
+        class: '%pim_catalog.doctrine.completeness_generator.class%'
+        arguments:
+            - '@doctrine.orm.entity_manager'
+            - '%pim_catalog.entity.product.class%'
+            - '%pim_catalog.entity.product_value.scalar.class%'
+            - '%pim_catalog.entity.attribute.class%'
