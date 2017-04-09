@@ -1603,11 +1603,7 @@ class FixturesContext extends BaseFixturesContext
         $product->setUpdated(new \DateTime($expected));
 
         $objectManager = null;
-        if ($this->isMongoDB()) {
-            $objectManager = $this->getDocumentManager();
-        } else {
-            $objectManager = $this->getEntityManager();
-        }
+        $objectManager = $this->getEntityManager();
 
         $objectManager->persist($product);
         $objectManager->flush();
@@ -2020,14 +2016,6 @@ class FixturesContext extends BaseFixturesContext
     protected function listToArray($list)
     {
         return $this->getMainContext()->listToArray($list);
-    }
-
-    /**
-     * @return boolean
-     */
-    protected function isMongoDB()
-    {
-        return 'doctrine/mongodb-odm' === $this->getParameter('pim_catalog_product_storage_driver');
     }
 
     /**

@@ -17,7 +17,7 @@ imports:
     - { resource: '@PimApiBundle/Resources/config/api.yml' }
 
 akeneo_storage_utils:
-    storage_driver: '%pim_catalog_product_storage_driver%'
+    storage_driver: 'doctrine/orm'
 
 services:
     oro.cache.abstract:
