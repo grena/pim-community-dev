@@ -66,9 +66,6 @@ class ProductController
     protected $productRepository;
 
     /** @var PaginatorInterface */
-    protected $offsetPaginator;
-
-    /** @var PaginatorInterface */
     protected $searchAfterPaginator;
 
     /** @var ParameterValidatorInterface */
@@ -108,7 +105,6 @@ class ProductController
      * @param IdentifiableObjectRepositoryInterface $localeRepository
      * @param AttributeRepositoryInterface          $attributeRepository
      * @param ProductRepositoryInterface            $productRepository
-     * @param PaginatorInterface                    $offsetPaginator
      * @param PaginatorInterface                    $searchAfterPaginator
      * @param ParameterValidatorInterface           $parameterValidator
      * @param ValidatorInterface                    $productValidator
@@ -128,7 +124,6 @@ class ProductController
         IdentifiableObjectRepositoryInterface $localeRepository,
         AttributeRepositoryInterface $attributeRepository,
         ProductRepositoryInterface $productRepository,
-        PaginatorInterface $offsetPaginator,
         PaginatorInterface $searchAfterPaginator,
         ParameterValidatorInterface $parameterValidator,
         ValidatorInterface $productValidator,
@@ -147,7 +142,6 @@ class ProductController
         $this->localeRepository = $localeRepository;
         $this->attributeRepository = $attributeRepository;
         $this->productRepository = $productRepository;
-        $this->offsetPaginator = $offsetPaginator;
         $this->searchAfterPaginator = $searchAfterPaginator;
         $this->parameterValidator = $parameterValidator;
         $this->productValidator = $productValidator;
