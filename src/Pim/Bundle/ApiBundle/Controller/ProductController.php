@@ -18,7 +18,6 @@ use Pim\Component\Api\Pagination\PaginatorInterface;
 use Pim\Component\Api\Pagination\ParameterValidatorInterface;
 use Pim\Component\Api\Repository\AttributeRepositoryInterface;
 use Pim\Component\Api\Repository\ProductRepositoryInterface;
-use Pim\Component\Api\Security\PrimaryKeyEncrypter;
 use Pim\Component\Catalog\Builder\ProductBuilderInterface;
 use Pim\Component\Catalog\Comparator\Filter\ProductFilterInterface;
 use Pim\Component\Catalog\Exception\InvalidOperatorException;
@@ -99,9 +98,6 @@ class ProductController
     /** @var StreamResourceResponse */
     protected $partialUpdateStreamResource;
 
-    /** @var  PrimaryKeyEncrypter */
-    protected $primaryKeyEncrypter;
-
     /** @var array */
     protected $apiConfiguration;
 
@@ -123,7 +119,6 @@ class ProductController
      * @param RouterInterface                       $router
      * @param ProductFilterInterface                $emptyValuesFilter
      * @param StreamResourceResponse                $partialUpdateStreamResource
-     * @param PrimaryKeyEncrypter                   $primaryKeyEncrypter
      * @param array                                 $apiConfiguration
      */
     public function __construct(
@@ -144,7 +139,6 @@ class ProductController
         RouterInterface $router,
         ProductFilterInterface $emptyValuesFilter,
         StreamResourceResponse $partialUpdateStreamResource,
-        PrimaryKeyEncrypter $primaryKeyEncrypter,
         array $apiConfiguration
     ) {
         $this->pqbFactory = $pqbFactory;
@@ -164,7 +158,6 @@ class ProductController
         $this->router = $router;
         $this->emptyValuesFilter = $emptyValuesFilter;
         $this->partialUpdateStreamResource = $partialUpdateStreamResource;
-        $this->primaryKeyEncrypter = $primaryKeyEncrypter;
         $this->apiConfiguration = $apiConfiguration;
     }
 
