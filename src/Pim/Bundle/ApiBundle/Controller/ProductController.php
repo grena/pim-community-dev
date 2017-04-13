@@ -29,6 +29,7 @@ use Pim\Component\Catalog\Model\ProductInterface;
 use Pim\Component\Catalog\Query\Filter\Operators;
 use Pim\Component\Catalog\Query\ProductQueryBuilderFactoryInterface;
 use Pim\Component\Catalog\Query\ProductQueryBuilderInterface;
+use Pim\Component\Catalog\Query\Sorter\Directions;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -207,7 +208,8 @@ class ProductController
 
         $queryParameters = array_merge($defaultParameters, $request->query->all());
         $pqbOptions = ['limit' => $queryParameters['limit']];
-        $pqbOptions['search_after'] = isset($queryParameters['search_after']) ? $queryParameters['search_after'] : null;
+        $pqbOptions['search_after_identifier'] = isset($queryParameters['search_after']) ?
+            $queryParameters['search_after'] : null;
 
         $pqb = $this->pqbFactory->create($pqbOptions);
         try {
@@ -222,7 +224,7 @@ class ProductController
             throw new UnprocessableEntityHttpException($e->getMessage(), $e);
         }
 
-        $paginatedProducts = $this->searchAfterIdentifier($pqb, $queryParameters, $normalizerOptions);
+        $paginatedProducts = $this->searchAfterIdentifier($pqb, $request, $queryParameters, $normalizerOptions, $pqbOptions, $channel);
 
         return new JsonResponse($paginatedProducts);
     }
@@ -672,15 +674,21 @@ class ProductController
 
     /**
      * @param ProductQueryBuilderInterface $pqb
+     * @param Request                      $request
      * @param array                        $queryParameters
      * @param array                        $normalizerOptions
+     * @param array                        $pqbOptions
+     * @param ChannelInterface             $channel
      *
      * @return array
      */
     protected function searchAfterIdentifier(
         ProductQueryBuilderInterface $pqb,
+        Request $request,
         array $queryParameters,
-        array $normalizerOptions
+        array $normalizerOptions,
+        array $pqbOptions,
+        ChannelInterface $channel = null
     ) {
         $productCursor = $pqb->execute();
 
@@ -688,8 +696,21 @@ class ProductController
             'query_parameters'    => $queryParameters,
             'list_route_name'     => 'pim_api_product_list',
             'item_route_name'     => 'pim_api_product_get',
-            'item_identifier_key' => 'identifier'
+            'item_identifier_key' => 'identifier',
         ];
+
+        if (isset($queryParameters['search_after'])) {
+            $pqbOptions['search_after'] = [$queryParameters['search_after']];
+
+            $pqbPrevious = $this->pqbFactory->create($pqbOptions);
+            $this->setPQBFilters($pqbPrevious, $request, $channel);
+
+            $pqbPrevious->addSorter('identifier', Directions::DESCENDING);
+            $previousLink = $pqbPrevious->execute();
+
+            $parameters['previous'] = $previousLink->getCountItemsFetched() < $pqbOptions['limit'] ?
+                null : $previousLink->getLastItem();
+        }
 
         $count = isset($queryParameters['with_count']) && 'true' === $queryParameters['with_count'] ?
             $productCursor->count() : null;

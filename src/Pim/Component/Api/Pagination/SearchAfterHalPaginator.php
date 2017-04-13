@@ -36,6 +36,8 @@ class SearchAfterHalPaginator implements PaginatorInterface
             'item_identifier_key' => 'code',
         ]);
 
+        $this->resolver->setDefined(['previous']);
+
         $this->resolver->setRequired([
             'query_parameters',
             'list_route_name',
@@ -81,6 +83,10 @@ class SearchAfterHalPaginator implements PaginatorInterface
             $this->createLink($parameters['list_route_name'], $uriParameters, $searchAfter, 'self'),
             $this->createLink($parameters['list_route_name'], $uriParameters, null, 'first'),
         ];
+
+        if (array_key_exists('previous', $parameters)) {
+            $links[] = $this->createLink($parameters['list_route_name'], $uriParameters, $parameters['previous'], 'previous');
+        }
 
         if (count($items) === (int) $parameters['query_parameters']['limit']) {
             $links[] = $this->createLink(

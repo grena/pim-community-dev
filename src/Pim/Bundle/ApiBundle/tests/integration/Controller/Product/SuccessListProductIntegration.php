@@ -910,27 +910,27 @@ JSON;
     {
         $client = $this->createAuthenticatedClient();
 
-        $client->request('GET', 'api/rest/v1/products?attributes=a_text&search_after=localizable_and_scopable&limit=2&with_count=false');
+        $client->request('GET', 'api/rest/v1/products?attributes=a_text&search_after=product_without_category&limit=2&with_count=false');
         $expected = <<<JSON
 {
     "_links"       : {
-        "self"     : {"href" : "http://localhost/api/rest/v1/products?limit=2&attributes=a_text&search_after=localizable_and_scopable&with_count=false"},
+        "self"     : {"href" : "http://localhost/api/rest/v1/products?limit=2&attributes=a_text&search_after=product_without_category&with_count=false"},
         "first"    : {"href" : "http://localhost/api/rest/v1/products?limit=2&attributes=a_text&with_count=false"},
-        "previous" : {"href" : "http://localhost/api/rest/v1/products?limit=2&attributes=a_text&with_count=false"},
-        "next"     : {"href" : "http://localhost/api/rest/v1/products?limit=2&attributes=a_text&search_after=product_without_category&with_count=false"}
+        "previous" : {"href" : "http://localhost/api/rest/v1/products?limit=2&attributes=a_text&search_after=localizable_and_scopable&with_count=false"},
+        "next"     : {"href" : "http://localhost/api/rest/v1/products?limit=2&attributes=a_text&search_after=simple&with_count=false"}
     },
     "current_page" : 2,
     "_embedded"    : {
         "items" : [
             {
                 "_links" : {
-                    "self" : {"href" : "http://localhost/api/rest/v1/products/product_china"}
+                    "self" : {"href" : "http://localhost/api/rest/v1/products/scopable"}
                 },
-                "identifier"    : "product_china",
+                "identifier"    : "scopable",
                 "family"        : null,
                 "groups"        : [],
                 "variant_group" : null,
-                "categories"    : ["master_china"],
+                "categories"    : ["categoryA1", "categoryA2"],
                 "enabled"       : true,
                 "values"        : {},
                 "created"       : "2017-01-23T11:44:25+01:00",
@@ -939,15 +939,23 @@ JSON;
             },
             {
                 "_links" : {
-                    "self" : {"href" : "http://localhost/api/rest/v1/products/product_without_category"}
+                    "self" : {"href" : "http://localhost/api/rest/v1/products/simple"}
                 },
-                "identifier"    : "product_without_category",
+                "identifier"    : "simple",
                 "family"        : null,
                 "groups"        : [],
                 "variant_group" : null,
-                "categories"    : [],
+                "categories"    : ["master"],
                 "enabled"       : true,
-                "values"        : {},
+                "values"        : {
+                    "a_text" : [
+                        {
+                            "locale" : null,
+                            "scope"  : null,
+                            "data"   : "Text"
+                        }
+                    ]
+                },
                 "created"       : "2017-01-23T11:44:25+01:00",
                 "updated"       : "2017-01-23T11:44:25+01:00",
                 "associations"  : {}
@@ -970,7 +978,7 @@ JSON;
     "_links"       : {
         "self"        : {"href" : "http://localhost/api/rest/v1/products?limit=10&search_after=simple&with_count=true"},
         "first"       : {"href" : "http://localhost/api/rest/v1/products?limit=10&with_count=true"},
-        "previous"    : {"href" : "http://localhost/api/rest/v1/products?limit=10&search_after=simple&with_count=true"}
+        "previous"    : {"href" : "http://localhost/api/rest/v1/products?limit=10&with_count=true"}
     },
     "current_page" : 2,
     "items_count"  : 6,
@@ -1096,7 +1104,8 @@ JSON;
 {
     "_links": {
         "self"  : {"href": "http://localhost/api/rest/v1/products?limit=4&search_after=product_china"},
-        "first" : {"href": "http://localhost/api/rest/v1/products?limit=4"}
+        "first" : {"href": "http://localhost/api/rest/v1/products?limit=4"},
+        "previous": {"href": "http://localhost/api/rest/v1/products?limit=4"}
     },
     "_embedded"    : {
         "items" : [
