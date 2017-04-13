@@ -116,7 +116,7 @@ class SuccessListProductIntegration extends AbstractProductTestCase
         "self"  : {"href": "http://localhost/api/rest/v1/products?limit=10"},
         "first" : {"href": "http://localhost/api/rest/v1/products?limit=10"}
     },
-    "current_page" : 1,
+    "current_page" : null,
     "_embedded"    : {
 		"items": [
             {$standardizedProducts['localizable']},
@@ -146,7 +146,7 @@ JSON;
         "first" : {"href": "http://localhost/api/rest/v1/products?limit=3&with_count=true"},
         "next"  : {"href": "http://localhost/api/rest/v1/products?limit=3&with_count=true&search_after=product_china"}
     },
-    "current_page" : 1,
+    "current_page" : null,
     "items_count"  : 6,
     "_embedded"    : {
 		"items": [
@@ -180,7 +180,7 @@ JSON;
         "self"  : {"href" : "http://localhost/api/rest/v1/products?limit=10&scope=ecommerce"},
         "first" : {"href" : "http://localhost/api/rest/v1/products?limit=10&scope=ecommerce"}
     },
-    "current_page" : 1,
+    "current_page" : null,
     "_embedded"    : {
         "items" : [
             {
@@ -285,7 +285,7 @@ JSON;
         "self"  : {"href" : "http://localhost/api/rest/v1/products?limit=10&scope=tablet"},
         "first" : {"href" : "http://localhost/api/rest/v1/products?limit=10&scope=tablet"}
     },
-    "current_page" : 1,
+    "current_page" : null,
     "_embedded"    : {
         "items" : [
             {
@@ -401,7 +401,7 @@ JSON;
         "self"  : {"href" : "http://localhost/api/rest/v1/products?limit=10&scope=tablet&locales=fr_FR"},
         "first" : {"href" : "http://localhost/api/rest/v1/products?limit=10&scope=tablet&locales=fr_FR"}
     },
-    "current_page" : 1,
+    "current_page" : null,
     "_embedded"    : {
         "items" : [
             {
@@ -505,7 +505,7 @@ JSON;
         "self"  : {"href" : "http://localhost/api/rest/v1/products?limit=10&scope=ecommerce_china"},
         "first" : {"href" : "http://localhost/api/rest/v1/products?limit=10&scope=ecommerce_china"}
     },
-    "current_page" : 1,
+    "current_page" : null,
     "_embedded"    : {
         "items" : [
             {
@@ -568,7 +568,7 @@ JSON;
         "self"  : {"href" : "http://localhost/api/rest/v1/products?limit=10&locales=en_US%2Czh_CN"},
         "first" : {"href" : "http://localhost/api/rest/v1/products?limit=10&locales=en_US%2Czh_CN"}
     },
-    "current_page" : 1,
+    "current_page" : null,
     "_embedded"    : {
         "items" : [
             {
@@ -688,7 +688,7 @@ JSON;
         "self"  : {"href" : "http://localhost/api/rest/v1/products?limit=10&attributes=a_text"},
         "first" : {"href" : "http://localhost/api/rest/v1/products?limit=10&attributes=a_text"}
     },
-    "current_page" : 1,
+    "current_page" : null,
     "_embedded"    : {
         "items" : [
             {
@@ -808,7 +808,7 @@ JSON;
         "self"  : {"href" : "http://localhost/api/rest/v1/products?limit=10&scope=tablet&locales=fr_FR&attributes=a_scopable_price%2Ca_metric%2Ca_localized_and_scopable_text_area"},
         "first" : {"href" : "http://localhost/api/rest/v1/products?limit=10&scope=tablet&locales=fr_FR&attributes=a_scopable_price%2Ca_metric%2Ca_localized_and_scopable_text_area"}
     },
-    "current_page" : 1,
+    "current_page" : null,
     "_embedded"    : {
         "items" : [
             {
@@ -919,7 +919,7 @@ JSON;
         "previous" : {"href" : "http://localhost/api/rest/v1/products?limit=2&attributes=a_text&search_after=localizable_and_scopable&with_count=false"},
         "next"     : {"href" : "http://localhost/api/rest/v1/products?limit=2&attributes=a_text&search_after=simple&with_count=false"}
     },
-    "current_page" : 2,
+    "current_page" : null,
     "_embedded"    : {
         "items" : [
             {
@@ -980,7 +980,7 @@ JSON;
         "first"       : {"href" : "http://localhost/api/rest/v1/products?limit=10&with_count=true"},
         "previous"    : {"href" : "http://localhost/api/rest/v1/products?limit=10&with_count=true"}
     },
-    "current_page" : 2,
+    "current_page" : null,
     "items_count"  : 6,
     "_embedded"    : {
         "items" : []
@@ -1004,7 +1004,7 @@ JSON;
         "self"  : {"href" : "http://localhost/api/rest/v1/products?limit=10&search=${searchEncoded}"},
         "first" : {"href" : "http://localhost/api/rest/v1/products?limit=10&search=${searchEncoded}"}
     },
-    "current_page" : 1,
+    "current_page" : null,
     "_embedded"    : {
         "items" : [
             {
@@ -1061,7 +1061,7 @@ JSON;
         "self"  : {"href" : "http://localhost/api/rest/v1/products?limit=10&search=${searchEncoded}"},
         "first" : {"href" : "http://localhost/api/rest/v1/products?limit=10&search=${searchEncoded}"}
     },
-    "current_page" : 1,
+    "current_page" : null,
     "_embedded"    : {
         "items" : []
     }
@@ -1084,7 +1084,7 @@ JSON;
         "self"  : {"href" : "http://localhost/api/rest/v1/products?limit=10&search=${searchEncoded}"},
         "first" : {"href" : "http://localhost/api/rest/v1/products?limit=10&search=${searchEncoded}"}
     },
-    "current_page" : 1,
+    "current_page" : null,
     "_embedded"    : {
         "items" : []
     }
@@ -1107,6 +1107,7 @@ JSON;
         "first" : {"href": "http://localhost/api/rest/v1/products?limit=4"},
         "previous": {"href": "http://localhost/api/rest/v1/products?limit=4"}
     },
+    "current_page" : null,
     "_embedded"    : {
         "items" : [
             {$standardizedProducts['product_without_category']},
