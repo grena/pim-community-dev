@@ -45,11 +45,11 @@ class CompletenessRemoverSpec extends ObjectBehavior
         Collection $completenesses,
         Statement $statement
     ) {
-        $product->getIdentifier()->willReturn('foo');
+        $product->getId()->willReturn(46);
         $product->getCompletenesses()->willReturn($completenesses);
         $completenesses->clear()->shouldBeCalled();
 
-        $connection->executeQuery(Argument::any(), ['foo'])->willReturn($statement);
+        $connection->executeQuery(Argument::any(), [46])->willReturn($statement);
         $statement->execute()->shouldBeCalled();
 
         $indexer->index($product)->shouldBeCalled();

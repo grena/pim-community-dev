@@ -58,8 +58,8 @@ class CompletenessRemover implements CompletenessRemoverInterface
     {
         $product->getCompletenesses()->clear();
         $statement = $this->entityManager->getConnection()->executeQuery(
-            'DELETE c FROM pim_catalog_completeness c JOIN pim_catalog_product p WHERE p.identifier = ?',
-            [$product->getIdentifier()]
+            'DELETE c FROM pim_catalog_completeness c JOIN pim_catalog_product p WHERE p.id = ?',
+            [$product->getId()]
         );
         $statement->execute();
 
