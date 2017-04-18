@@ -25,12 +25,6 @@ class BoundedCursor extends Cursor implements CursorInterface
     /** @var int */
     protected $fetchedItemsCount;
 
-    /** @var string|null */
-    protected $lastItem;
-
-    /** @var int */
-    protected $countItemsFetched;
-
     /**
      * @param Client                        $esClient
      * @param CursorableRepositoryInterface $repository
@@ -63,22 +57,6 @@ class BoundedCursor extends Cursor implements CursorInterface
     }
 
     /**
-     * @return string
-     */
-    public function getLastItem()
-    {
-        return $this->lastItem;
-    }
-
-    /**
-     * @return int
-     */
-    public function getCountItemsFetched()
-    {
-        return $this->countItemsFetched;
-    }
-
-    /**
      * {@inheritdoc}
      */
     protected function getItemsCountToFetch()
@@ -90,21 +68,5 @@ class BoundedCursor extends Cursor implements CursorInterface
         $this->fetchedItemsCount += $itemsCountToFetch;
 
         return $itemsCountToFetch;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    protected function getNextIdentifiers(array $esQuery)
-    {
-        $identifiers = parent::getNextIdentifiers($esQuery);
-
-        $this->countItemsFetched += count($identifiers);
-
-        if (!empty($identifiers)) {
-            $this->lastItem = end($identifiers);
-        }
-
-        return $identifiers;
     }
 }

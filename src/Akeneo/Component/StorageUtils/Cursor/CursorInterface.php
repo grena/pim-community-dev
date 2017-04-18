@@ -11,4 +11,17 @@ namespace Akeneo\Component\StorageUtils\Cursor;
  */
 interface CursorInterface extends \Countable, \Iterator
 {
+    /**
+     * Get the last item returned by the cursor
+     *
+     * @return string
+     */
+    public function getLastItem();
+
+    /**
+     * Get the count of items fetched
+     *
+     * @return int
+     */
+    public function getCountItemsFetched();
 }

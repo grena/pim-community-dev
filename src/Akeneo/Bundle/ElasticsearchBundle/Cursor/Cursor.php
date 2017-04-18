@@ -40,6 +40,12 @@ class Cursor implements CursorInterface
     /** @var int */
     protected $count;
 
+    /** @var string */
+    protected $lastItem;
+
+    /** @var int */
+    protected $countItemsFetched;
+
     /**
      * @param Client                        $esClient
      * @param CursorableRepositoryInterface $repository
@@ -107,6 +113,22 @@ class Cursor implements CursorInterface
     }
 
     /**
+     * {@inheritdoc}
+     */
+    public function getLastItem()
+    {
+        return $this->lastItem;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getCountItemsFetched()
+    {
+        return $this->countItemsFetched;
+    }
+
+    /**
      * Get the next items (hydrated from doctrine repository)
      *
      * @param array       $esQuery
@@ -171,6 +193,11 @@ class Cursor implements CursorInterface
         $identifiers = [];
         foreach ($response['hits']['hits'] as $hit) {
             $identifiers[] = $hit['_source']['identifier'];
+        }
+        $this->countItemsFetched += count($identifiers);
+
+        if (!empty($identifiers)) {
+            $this->lastItem = end($identifiers);
         }
 
         $lastResult = end($response['hits']['hits']);
