@@ -31,7 +31,7 @@ class ProductQueryBuilderBoundedOptionsResolver implements ProductQueryBuilderOp
     protected function createOptionsResolver()
     {
         $resolver = new OptionsResolver();
-        $resolver->setDefined(['locale', 'scope', 'limit', 'search_after', 'search_after_identifier']);
+        $resolver->setDefined(['locale', 'scope', 'limit', 'search_after', 'search_after_unique_key']);
         $resolver->setRequired(['locale', 'scope', 'limit']);
 
         return $resolver;

@@ -71,7 +71,7 @@ class BoundedCursorFactory implements CursorFactoryInterface
 
         $pageSize = !isset($options['page_size']) ? $this->pageSize : $options['page_size'];
         $searchAfter = !isset($options['search_after']) ? [] : $options['search_after'];
-        $searchAfterIdentifier = !isset($options['search_after_identifier']) ? null : $options['search_after_identifier'];
+        $searchAfterIdentifier = !isset($options['search_after_unique_key']) ? null : $options['search_after_unique_key'];
 
         return new $this->cursorClassName(
             $this->searchEngine,

@@ -195,7 +195,7 @@ class ProductController
 
         $queryParameters = array_merge($defaultParameters, $request->query->all());
         $pqbOptions = ['limit' => $queryParameters['limit']];
-        $pqbOptions['search_after_identifier'] = isset($queryParameters['search_after']) ?
+        $pqbOptions['search_after_unique_key'] = isset($queryParameters['search_after']) ?
             $queryParameters['search_after'] : null;
 
         $pqb = $this->pqbFactory->create($pqbOptions);

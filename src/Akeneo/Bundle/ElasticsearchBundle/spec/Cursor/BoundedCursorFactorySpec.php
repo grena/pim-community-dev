@@ -59,7 +59,7 @@ class BoundedCursorFactorySpec extends ObjectBehavior
             ]
         ]);
 
-        $this->createCursor([], ['size' => 100, 'limit' => 150, 'search_after' => ['2017-12-12'], 'search_after_identifier' => 'foo'])
+        $this->createCursor([], ['size' => 100, 'limit' => 150, 'search_after' => ['2017-12-12'], 'search_after_unique_key' => 'foo'])
             ->shouldBeAnInstanceOf('Akeneo\Component\StorageUtils\Cursor\CursorInterface');
     }
 
