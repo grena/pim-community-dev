@@ -23,7 +23,8 @@ jobs:
       - run:
           name: Change permissions on project dir (default user = circleci (1001) and docker needs uid 1000)
           command: |
-            chmod 777 ../project -R
+            sudo chmod 777 ../project -R
+            sudo chown -R circleci:circleci ../project
       - run:
           name: Start containers
           command: |
@@ -42,6 +43,11 @@ jobs:
           key: nodemodules-v1-{{ checksum "yarn.lock" }}
           paths:
             - node_modules
+      - run:
+          name: Change permissions on project dir (default user = circleci (1001) and docker needs uid 1000)
+          command: |
+            sudo chmod 777 ../project -R
+            sudo chown -R circleci:circleci ../project
       - persist_to_workspace:
           root: ~/
           paths:
