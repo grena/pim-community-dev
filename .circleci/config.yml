@@ -10,6 +10,9 @@ jobs:
           command: |
             cp .env.dist .env
             cp behat.yml.dist behat.yml
+      - restore_cache:
+          keys:
+            - composer-v1-{{ checksum "composer.lock" }}
       - run:
           name: Create tests results folder
           command: |
@@ -32,6 +35,10 @@ jobs:
           name: Change permissions on project dir (default user = circleci (1001) and docker needs uid 1000)
           command: |
             chmod 777 ../project -R
+      - save_cache:
+          key: composer-v1-{{ checksum "composer.lock" }}
+          paths:
+            - vendor
       - persist_to_workspace:
           root: ~/
           paths:
