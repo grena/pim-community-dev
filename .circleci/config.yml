@@ -65,6 +65,7 @@ jobs:
 #      - checkout
       - attach_workspace:
           at: ~/
+      - run: sudo chmod 777 ~/project -R
       - run:
           name: Start containers
           command: |
