@@ -55,18 +55,14 @@ jobs:
       - persist_to_workspace:
           root: ~/
           paths:
-            - project/app
-            - project/node_modules
-            - project/vendor
-            - project/web
-            - project/var/cache
+            - project
 
   test_back:
     machine:
       enabled: true
     parallelism: 1
     steps:
-      - checkout
+#      - checkout
       - attach_workspace:
           at: ~/
       - run:
@@ -74,7 +70,7 @@ jobs:
           command: |
             set -x
             docker-compose up -d
-            docker-compose exec --user=1001:1002 fpm bin/console --env=behat pim:install:db
+            docker-compose exec fpm bin/console --env=behat pim:install:db
       - run:
           name: PHPunit Integration
           command: |
