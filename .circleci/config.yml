@@ -20,23 +20,23 @@ jobs:
           name: Create tests results folder
           command: |
             mkdir -p var/tests
-#      - run:
-#          name: Change permissions on project dir (default user = circleci (1001) and docker needs uid 1000)
-#          command: |
-#            sudo chmod 777 ../project -R
-#            sudo chown -R circleci:circleci ../project
+      - run:
+          name: Change permissions on project dir (default user = circleci (1001) and docker needs uid 1000)
+          command: |
+            sudo chmod 777 ~/project -R
+#            sudo chown -R $USER:$USER ~/project
       - run:
           name: Start containers
           command: |
             set -x
             docker-compose up -d
 
-            docker-compose exec --user=1001:1002 fpm php -d memory_limit=3G /usr/local/bin/composer install
-            docker-compose run --user=1001:1002 --rm node yarn install
+            docker-compose exec fpm php -d memory_limit=3G /usr/local/bin/composer install
+            docker-compose run --rm node yarn install
 
-            docker-compose exec --user=1001:1002 fpm bin/console --env=behat pim:install --force --symlink --clean
-            docker-compose run --user=1001:1002 --rm node yarn run webpack-dev
-            docker-compose run --user=1001:1002 --rm node yarn run webpack-test
+            docker-compose exec fpm bin/console --env=behat pim:install --force --symlink --clean
+            docker-compose run --rm node yarn run webpack-dev
+            docker-compose run --rm node yarn run webpack-test
             mkdir -p var/logs
 #      - run:
 #          name: Change permissions on project dir (default user = circleci (1001) and docker needs uid 1000)
