@@ -51,6 +51,7 @@ jobs:
 #          key: nodemodules-v1-{{ checksum "yarn.lock" }}
 #          paths:
 #            - node_modules
+      - run: sudo chmod 777 ~/project/node_modules -R
       - persist_to_workspace:
           root: ~/
           paths:
