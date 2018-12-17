@@ -10,12 +10,12 @@ jobs:
           command: |
             cp .env.dist .env
             cp behat.yml.dist behat.yml
-      - restore_cache:
-          keys:
-            - composer-v1-{{ checksum "composer.lock" }}
-      - restore_cache:
-          keys:
-            - nodemodules-v1-{{ checksum "yarn.lock" }}
+#      - restore_cache:
+#          keys:
+#            - composer-v1-{{ checksum "composer.lock" }}
+#      - restore_cache:
+#          keys:
+#            - nodemodules-v1-{{ checksum "yarn.lock" }}
       - run:
           name: Create tests results folder
           command: |
@@ -35,19 +35,19 @@ jobs:
             docker-compose run --rm node yarn run webpack-dev
             docker-compose run --rm node yarn run webpack-test
             mkdir -p var/logs
-      - save_cache:
-          key: composer-v1-{{ checksum "composer.lock" }}
-          paths:
-            - vendor
-      - save_cache:
-          key: nodemodules-v1-{{ checksum "yarn.lock" }}
-          paths:
-            - node_modules
-      - run:
-          name: Change permissions on project dir (default user = circleci (1001) and docker needs uid 1000)
-          command: |
-            sudo chmod 777 ../project -R
-            sudo chown -R circleci:circleci ../project
+#      - run:
+#          name: Change permissions on project dir (default user = circleci (1001) and docker needs uid 1000)
+#          command: |
+#            sudo chmod 777 ../project -R
+#            sudo chown -R circleci:circleci ../project
+#      - save_cache:
+#          key: composer-v1-{{ checksum "composer.lock" }}
+#          paths:
+#            - vendor
+#      - save_cache:
+#          key: nodemodules-v1-{{ checksum "yarn.lock" }}
+#          paths:
+#            - node_modules
       - persist_to_workspace:
           root: ~/
           paths:
