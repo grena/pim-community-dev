@@ -36,10 +36,7 @@ jobs:
       - persist_to_workspace:
           root: ~/
           paths:
-            - app
-            - var
-            - vendor
-            - web
+            - project/
 
   test_back:
     machine:
