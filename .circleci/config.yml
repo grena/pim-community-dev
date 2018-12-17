@@ -30,8 +30,11 @@ jobs:
           command: |
             set -x
             docker-compose up -d
-            ./bin/docker/pim-dependencies.sh
-            docker-compose exec --user docker fpm bin/console --env=behat pim:install --force --symlink --clean
+
+            docker-compose exec --user 1001:1002 fpm php -d memory_limit=3G /usr/local/bin/composer install
+            docker-compose run --rm node yarn install
+
+            docker-compose exec --user 1001:1002 fpm bin/console --env=behat pim:install --force --symlink --clean
             docker-compose run --rm node yarn run webpack-dev
             docker-compose run --rm node yarn run webpack-test
             mkdir -p var/logs
@@ -70,7 +73,7 @@ jobs:
           command: |
             set -x
             docker-compose up -d
-            docker-compose exec --user docker fpm bin/console --env=behat pim:install:db
+            docker-compose exec --user 1001:1002 fpm bin/console --env=behat pim:install:db
       - run:
           name: PHPunit Integration
           command: |
