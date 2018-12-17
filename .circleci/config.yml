@@ -34,10 +34,6 @@ jobs:
             docker-compose run --rm node yarn run webpack-dev
             docker-compose run --rm node yarn run webpack-test
             mkdir -p var/logs
-      - run:
-          name: Change permissions on project dir (default user = circleci (1001) and docker needs uid 1000)
-          command: |
-            chmod 777 ../project -R
       - save_cache:
           key: composer-v1-{{ checksum "composer.lock" }}
           paths:
@@ -49,13 +45,18 @@ jobs:
       - persist_to_workspace:
           root: ~/
           paths:
-            - project/
+            - project/app
+            - project/node_modules
+            - project/vendor
+            - project/web
+            - project/var/cache
 
   test_back:
     machine:
       enabled: true
     parallelism: 1
     steps:
+      - checkout
       - attach_workspace:
           at: ~/
       - run:
