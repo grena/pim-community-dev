@@ -6,12 +6,12 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Copy env file
-          command: |
+          name: Copy behat & docker configuration files
+          command:
             cp .env.dist .env
             cp behat.yml.dist behat.yml
       - run:
-          name: Setup tests results folder
+          name: Create tests results folder
           command: |
             mkdir -p var/tests
       - run:
@@ -28,24 +28,26 @@ jobs:
 #            docker-compose run --rm node yarn run webpack-dev
 #            docker-compose run --rm node yarn run webpack-test
 #            mkdir -p var/logs
-      - run:
-          name: Create temp workspace directory
-          command: |
-            mkdir -p /tmp/workspace
-            mv ~/project /tmp/workspace/pim
+#      - run:
+#          name: Create temp workspace directory
+#          command: |
+#            mkdir -p /tmp/workspace
+#            mv ~/project /tmp/workspace/pim
       - persist_to_workspace:
-          root: /tmp/workspace
+          root: ~/
           paths:
-            - pim/*
+            - app
+            - var
+            - vendor
+            - web
 
   test_back:
     machine:
       enabled: true
-    parallelism: 7
-    working_directory: ~/project/pim
+    parallelism: 1
     steps:
       - attach_workspace:
-          at: .
+          at: ~/
       - run:
           name: Start containers
           command: |
