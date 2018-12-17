@@ -7,7 +7,7 @@ jobs:
       - checkout
       - run:
           name: Copy behat & docker configuration files
-          command:
+          command: |
             cp .env.dist .env
             cp behat.yml.dist behat.yml
       - run:
