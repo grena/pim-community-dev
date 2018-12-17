@@ -13,6 +13,9 @@ jobs:
       - restore_cache:
           keys:
             - composer-v1-{{ checksum "composer.lock" }}
+      - restore_cache:
+          keys:
+            - nodemodules-v1-{{ checksum "yarn.lock" }}
       - run:
           name: Create tests results folder
           command: |
@@ -39,6 +42,10 @@ jobs:
           key: composer-v1-{{ checksum "composer.lock" }}
           paths:
             - vendor
+      - save_cache:
+          key: nodemodules-v1-{{ checksum "yarn.lock" }}
+          paths:
+            - node_modules
       - persist_to_workspace:
           root: ~/
           paths:
