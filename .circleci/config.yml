@@ -28,6 +28,10 @@ jobs:
             docker-compose run --rm node yarn run webpack-dev
             docker-compose run --rm node yarn run webpack-test
             mkdir -p var/logs
+      - run:
+          name: Change permissions on project dir (default user = circleci (1001) and docker needs uid 1000)
+          command: |
+            chmod 777 ../project -R
       - persist_to_workspace:
           root: ~/
           paths:
